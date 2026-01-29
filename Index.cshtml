@@ -1,0 +1,98 @@
+﻿@model IEnumerable<Atividade>;
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Cadastrar Tarefa</h1>
+
+    <form asp-controller="Home" asp-action="Criar" method="post">
+        <div class="card mt-5 p-2 mb-5 text-start">
+            <label class="form-label">Descrição</label>
+            <input type="text" class="form-control" name="descricao"/>
+
+            <label class="form-label mt-4">Prioridade</label>
+            <select class="form-select" name="prioridade">
+                <option value="0">Baixa</option>
+                <option value="1">Média</option>
+                <option value="2">Alta</option>
+            </select>
+
+            <button type="submit" class="btn btn-primary mt-4 col-2">Salvar</button>        
+        </div>
+    </form>
+
+    <h1 class="display-4">Lista de Tarefas</h1>
+    <hr />
+    @* <table class="table">
+        <thead>
+            <tr>
+                <th>Nº</th>
+                <th>Status</th>
+                <th>Prioridade</th>
+                <th>Data</th>
+                <th>Descrição</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+        <tbody> *@
+
+        <div class="d-flex flex-wrap gap-3 justify-content-center"> 
+        
+            @{
+                int i = 1;
+                foreach (var item in Model)
+                {
+                    @* <tr>
+                        <td>@i</td>
+                        <td>@(item.Concluida == true ? "CONCLUÍDA" : "PENDENTE")</td>
+                        <td>@item.NivelPrioridade</td>
+                        <td>@item.DataCriacao.ToShortDateString()</td>
+                        <td>@item.Descricao</td>
+                        <td>
+                            <a class="btn btn-outline-warning"
+                            asp-controller="Home"
+                            asp-action="ConcluirTarefa"
+                            asp-route-id="@item.Id"
+                            onclick="return confirm('Tem certeza de que deseja concluir essa tarefa?')"
+                            >CONCLUIR TAREFA</a>
+                            <a class="btn btn-outline-danger"
+                            asp-controller="Home"
+                            asp-action="Excluir"
+                            asp-route-id="@item.Id"
+                            onclick="return confirm('Tem certeza de que deseja excluir essa tarefa?')"
+                            >EXCLUIR</a>
+                        </td>
+                    </tr> *@
+                    <div class="card" style="width: 18rem;">                        
+                        <div class="card-body">
+                            <h5>@i</h5>
+                            <p>@(item.Concluida == true ? "CONCLUÍDA" : "PENDENTE")</p>
+                            <p>@item.NivelPrioridade</p>
+                            <p>@item.DataCriacao.ToShortDateString()</p>
+                            <p>@item.Descricao</p>
+                        </div>
+                        <div class="card-footer">
+                            <a class="btn btn-outline-warning"
+                                    asp-controller="Home"
+                                    asp-action="ConcluirTarefa"
+                                    asp-route-id="@item.Id"
+                                    onclick="return confirm('Tem certeza de que deseja concluir essa tarefa?')"
+                                    >CONCLUIR TAREFA</a>
+                            <a class="btn btn-outline-danger"
+                                    asp-controller="Home"
+                                    asp-action="Excluir"
+                                    asp-route-id="@item.Id"
+                                    onclick="return confirm('Tem certeza de que deseja excluir essa tarefa?')"
+                                    >EXCLUIR</a>
+                        </div>
+                    </div>
+                    i++; 
+                }   
+            }           
+        </div>
+        @* </tbody>
+    </table> *@
+
+</div>
